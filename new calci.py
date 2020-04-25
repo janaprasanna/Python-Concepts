@@ -1,5 +1,3 @@
-
-
 print("Enter your choices of mathematical operation to perform:")
 print("1. Addition")
 print("2. subraction")
@@ -10,8 +8,6 @@ opt = input("Enter choice(1/2/3/4): ")
 
 x = float(input("Enter first number: "))
 y = float(input("Enter second number: "))
-
-#def calculate(x,y):
 
 
 def add(x,y):
@@ -41,21 +37,32 @@ else:
    print("Invalid input")
 
 
-#calculate(x,y)
+print("Do you want to  continue using calculator??")
+
+cont = str(input("choose (y) for yes and (n) for no:"))
+
+while cont == "n" or "N":
+    print("goodbye...")
+    break
+
+while cont == "y":
+    opt = input("Enter choice(1/2/3/4): ")
+
+    x = float(input("Enter first number: "))
+    y = float(input("Enter second number: "))
+
+    if opt == '1':
+        print(x, "+", y, "=", add(x, y))
+    elif opt == '2':
+        print(x, "-", y, "=", sub(x, y))
+
+    elif opt == '3':
+        print(x, "*", y, "=", div(x, y))
+
+    elif opt == '4':
+        print(x, "/", y, "=", mul(x, y))
+    else:
+        print("Invalid input")
 
 
-def again():
 
-
-    calc_again = input('''
-Do you want to calculate again?
-Please type Y for YES or N for NO.
-''')
-
-    if calc_again == 'Y':
-        calculate()
-
-
-    elif calc_again == 'N':
-        print('See you later.')
-again()
