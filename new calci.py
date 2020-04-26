@@ -36,33 +36,34 @@ elif opt == '4':
 else:
    print("Invalid input")
 
+op = True
+while op:
+    print("Do you want to  continue using calculator??")
 
-print("Do you want to  continue using calculator??")
+    cont = str(input("choose (y) for yes and (n) for no:"))
+    if cont == 'y' or cont == 'YES' or cont == "yes" or cont == "Yes":
+        opt = input("Enter choice(1/2/3/4): ")
 
-cont = str(input("choose (y) for yes and (n) for no:"))
+        x = float(input("Enter first number: "))
+        y = float(input("Enter second number: "))
 
-while cont == "n" or "N":
-    print("goodbye...")
-    break
+        if opt == '1':
+            print(x, "+", y, "=", add(x, y))
 
-while cont == "y":
-    opt = input("Enter choice(1/2/3/4): ")
+        elif opt == '2':
+            print(x, "-", y, "=", sub(x, y))
 
-    x = float(input("Enter first number: "))
-    y = float(input("Enter second number: "))
+        elif opt == '3':
+            print(x, "*", y, "=", div(x, y))
 
-    if opt == '1':
-        print(x, "+", y, "=", add(x, y))
-    elif opt == '2':
-        print(x, "-", y, "=", sub(x, y))
-
-    elif opt == '3':
-        print(x, "*", y, "=", div(x, y))
-
-    elif opt == '4':
-        print(x, "/", y, "=", mul(x, y))
+        elif opt == '4':
+            print(x, "/", y, "=", mul(x, y))
+        else:
+            print("Invalid input")
+    elif cont == 'n':
+        op = False
+        print("Goodbye")
     else:
-        print("Invalid input")
-
+        print("Invalid operation")
 
 
