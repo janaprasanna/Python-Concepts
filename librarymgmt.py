@@ -6,10 +6,12 @@ def add_books(name, quantity):
         print("{}x books already in the library, adding {}x more books".format(books[name], quantity))
         books[name] = books[name] + quantity
         print("new count of {} books = {} ".format(name, books[name]))
+
     elif get_books(name) == False:
         print("{} not found in library so adding fresh books".format(name))
         books[name] = quantity
         print("Total {} books now is:{}".format(name,books[name]))
+
     else:
         print("unknown error")
 
@@ -31,27 +33,25 @@ def remove_books(name):
          print("Operation failed !")
 
 def add_student(sname,stdbook,sbqty):
-
-    if get_student(sname)==True:
-        print("{} student already found in library".format(sname))
-        student[sname][stdbook] = student[sname][stdbook] + sbqty
-        print("Total {} books after adding again is: {}".format(stdbook,student[sname][stdbook]))
-        #print(student)
-    elif get_student(sname)==False:
-        print(" No such {} student found in existing library".format(sname))
-        student[sname] = {stdbook: sbqty}
-        print("so adding new student {} with the book {} of count:{}".format(sname,stdbook,sbqty))
-        print(student)
-
-    else :
-        print("Unknown error")
+        if get_student(sname)==True:
+            print("{} student already found in library".format(sname))
+            student[sname][stdbook] = student[sname][stdbook] + sbqty
+            print("Total {} books after adding again is: {}".format(stdbook,student[sname][stdbook]))
+            #print(student)
+        elif get_student(sname)==False:
+            print(" No such {} student found in existing library".format(sname))
+            student[sname] = {stdbook: sbqty}
+            print("so adding new student {} with the book {} of count:{}".format(sname,stdbook,sbqty))
+            print(student)
+        else:
+            print("Unknown error")
 
 def get_student(searchstd):
     if searchstd in student.keys():
-        print("{} student found in library  with {}x {} book count..!".format(sname,sbqty,stdbook))
+        print("{} student exists in library  with {}x {} book count..!".format(sname,sbqty,stdbook))
         return True
     else:
-        print("{} student not found in library.".format(searchstd))
+        print("{} student doesn't exits in library.".format(searchstd))
 
         return False
 
