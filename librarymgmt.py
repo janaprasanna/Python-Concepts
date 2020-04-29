@@ -1,7 +1,6 @@
 student = {}
 books = {}
 
-
 def add_books(name, quantity):
     if get_books(name) == True:
         print("{}x books already in the library, adding {}x more books".format(books[name], quantity))
@@ -16,24 +15,20 @@ def add_books(name, quantity):
 
 def get_books(name):
     if name in books.keys():
-        print(" {} books  found in library".format( name))
+        print(" {} books  found in library".format(name))
         #print(" Existing {} book count is :{}".format(name,book[name]))
         return True
     else:
         print("{} book not found in library".format(name))
         return False
 
-#def remove_books(name):
-    # if get_books(name)==True:
-    #     books[name]= books[name]+quantity
-    #     print("Existing {} books in the library is:{}".format(name,books[name]))
-    #
-    # else:
-    #     books[name]= books[name] - bqty
-    #     print("{} books remaining after lending to {} student is {}".format(name, student[name],books[name]))
-    # if name in books.keys():
-    #     books.pop(name)
-    #     print("{} book is removed from the library..".format(name))
+def remove_books(name):
+     if get_books(name)==True:
+         books[name]= books[name] - rqty
+         print("Existing {} books in the library is:{}".format(name,books[name]))
+     else:
+         print("No {} books were found in the library. ".format(rbook))
+         print("Operation failed !")
 
 def add_student(sname,stdbook,sbqty):
 
@@ -51,22 +46,25 @@ def add_student(sname,stdbook,sbqty):
     else :
         print("Unknown error")
 
-
 def get_student(searchstd):
     if searchstd in student.keys():
         print("{} student found in library  with {}x {} book count..!".format(sname,sbqty,stdbook))
         return True
     else:
-        print("{} student not found in library".format(searchstd))
+        print("{} student not found in library.".format(searchstd))
+
         return False
 
 def remove_student(rstudent):
-    if get_student(searchstd)==True:
-        student.pop(name)
-        print("{} book is removed from the library..".format(rstudent))
+    if get_student(rstudent) == True:
+        print("Total {} books the student {} has before leaving is :{}".format(stdbook,sname,student[sname][stdbook]))
+        student[sname][stdbook] = student[sname][stdbook] - student[sname][stdbook]
+        print("{} books  remaining with {} after removed is :{}".format(stdbook,sname,student[sname][stdbook]))
+        student.popitem()
+        print("{} student is removed from the library..".format(rstudent))
     else:
-        print("No student named {} is found in library".format(name))
-
+        print("No student named {} is found in library".format(rstudent))
+        print("Operation failed !")
 
 op = True
 while op ==True:
@@ -95,13 +93,13 @@ while op ==True:
 
     elif choose == 3:
         rbook = str(input("Enter book name to remove: "))
+        rqty = int(input("Enter the amount of {} to be removed: ".format(bname)))
         remove_books(rbook)
 
     elif choose == 4:
         sname = str(input("Enter student name to be added:"))
         stdbook = str(input("Enter the book to be issued by the student {}:".format(sname)))
         sbqty = int(input("Enter the amount of books issued:"))
-
         add_student(sname,stdbook,sbqty)
 
     elif choose == 5:
