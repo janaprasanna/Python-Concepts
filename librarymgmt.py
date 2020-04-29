@@ -40,10 +40,27 @@ def add_student(sname,stdbook,sbqty):
     if get_student(sname)==True:
         print("{} student already found in library".format(sname))
         student[sname][stdbook] = student[sname][stdbook] + sbqty
-        print("Total {} books after adding again is: {}".format(stdbook,student[sname][stdbook]))
+        # print("Total {} books after adding again is: {}".format(stdbook,student[sname][stdbook]))
+        #                                                                                             Enter student name to be added:jana
+        #                                                                                             Enter the book to be issued by the student jana:math
+        #                                                                                             Enter the amount of books issued:2
+        #                                                                                             jana student not found in library
+        #                                                                                             jana student not found in library
+        #                                                                                             No such jana student found in existing library
+        #                                                                                             so adding new student jana with the book math of count:2
+        #                                                                                             {'jana': {'math': 2}}
+        #
         #print(student)
     elif get_student(sname)==False:
         print(" No such {} student found in existing library".format(sname))
+        #                                                                        Enter student name to be added:jana
+        #                                                                        Enter the book to be issued by the student jana:math
+        #                                                                        Enter the amount of books issued:3
+        #                                                                        jana student not found in library
+        #                                                                        jana student not found in library
+        #                                                                        No such jana student found in existing library
+        #                                                                        so adding new student jana with the book math of count:3
+        #                                                                        {'jana': {'math': 3}}
         student[sname] = {stdbook: sbqty}
         print("so adding new student {} with the book {} of count:{}".format(sname,stdbook,sbqty))
         print(student)
