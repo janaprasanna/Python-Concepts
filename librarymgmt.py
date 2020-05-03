@@ -79,13 +79,13 @@ def get_student(searchstd):
         print("{} student doesn't exits in library.".format(searchstd))
         return sname, 0, "STUDENTNOTEXISTS"
 
-def remove_student(rstudent):
+def remove_student(rstudent,rbstudent):
     student_name, studentbook_quantity, student_status = get_student(sname)
-    if student_status == "STUDENTALREADYEXIST":
+    if student_status == "STUDENTALREADYEXISTS":
         print("Total {} books the student {} has before leaving is :{}".format(stdbook,sname,student[sname][stdbook]))
-        student[sname][stdbook] = student[sname][stdbook] - student[sname][stdbook]
+        student[sname][stdbook] = student[sname][stdbook] - rbstudent
         squantity = student[sname][stdbook]
-        print("{} books  remaining with {} after removed is :{}".format(stdbook,sname,student[sname][stdbook]))
+        print("{} books  remaining with {} after removed is :{}".format(stdbook,student_name,squantity))
         student.popitem()
         print("{} student is removed from the library..".format(rstudent))
         return squantity, "STUDENTREMOVED."
@@ -136,7 +136,8 @@ while op ==True:
         get_student(searchstd)
     elif choose == 6:
         rstudent = str(input("Enter student name to remove: "))
-        remove_student(rstudent)
+        rbstudent = int(input("Enter the amount of books to be returned:"))
+        remove_student(rbstudent,rbstudent)
 
     elif choose == 9:
         print("Good bye..! Have a nice day..!")
