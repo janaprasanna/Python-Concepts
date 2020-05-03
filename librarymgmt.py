@@ -2,69 +2,97 @@ student = {}
 books = {}
 
 def add_books(name, quantity):
-    if get_books(name) == True:
-        print("{}x books already in the library, adding {}x more books".format(books[name], quantity))
-        books[name] = books[name] + quantity
-        print("new count of {} books = {} ".format(name, books[name]))
+    book_name,book_quantity,books_status = get_books(name)
+    if books_status == "ALREADYEXISTS" :
+        print("{}x book exits already in the library, adding {}x more books".format(book_name, book_quantity))
+        books[name] = books[name] + book_quantity
+        print("new count of {} books = {} ".format(book_name, books[name]))
+        return book_name,books[name],"BOOKSADDED"
 
-    elif get_books(name) == False:
-        print("{} not found in library so adding fresh books".format(name))
+    elif books_status == "NOTEXISTS":
+        print("{} not found in library so adding fresh books".format(book_name))
         books[name] = quantity
-        print("Total {} books now is:{}".format(name,books[name]))
+        print("Total {} books now is:{}".format(book_name,quantity))
+        return book_name, books[name], "NOTADDED"
 
     else:
         print("unknown error")
+        return book_name, books[name], "ERROR"
 
 def get_books(name):
     if name in books.keys():
+        quantity = books[name]
         print(" {} books  found in library".format(name))
-        #print(" Existing {} book count is :{}".format(name,book[name]))
-        return True
+        print(" Existing {} book count is :{}".format(name,quantity))
+        return name, quantity, "ALREADYEXISTS"
     else:
         print("{} book not found in library".format(name))
-        return False
+        return name, 0, "NOTEXISTS"
 
-def remove_books(name):
-     if get_books(name)==True:
-         books[name]= books[name] - rqty
-         print("Existing {} books in the library is:{}".format(name,books[name]))
-     else:
-         print("No {} books were found in the library. ".format(rbook))
-         print("Operation failed !")
+def remove_books(name,quantity):
+    book_name, book_quantity, books_status = get_books(name)
+    if books_status == "ALREADYEXISTS":
+        if quantity <= books[name]:
+            books[name]= books[name] - quantity
+            print("Existing {} books in the library is:{}".format(book_name,books[name]))
+            return books[name],"REMOVED SUCCESSFULLY"
+        else:
+            print("NOTE: The entered value is greater than the books available in the library.")
+            print("Enter the  value which is less than or equal to the book count in the library !!")
+
+    else:
+        print("No {} books were found in the library. ".format(book_name))
+        print("Operation failed !")
+        return "ERROR"
 
 def add_student(sname,stdbook,sbqty):
-        if get_student(sname)==True:
+    book_name, book_quantity, books_status = get_books(stdbook)
+    student_name,studentbook_quantity,student_status= get_student(sname)
+    if books_status == "ALREADYEXISTS":
+        if student_status==  "STUDENTALREADYEXISTS":
             print("{} student already found in library".format(sname))
             student[sname][stdbook] = student[sname][stdbook] + sbqty
+            squantity = student[sname][stdbook]
             print("Total {} books after adding again is: {}".format(stdbook,student[sname][stdbook]))
-            #print(student)
-        elif get_student(sname)==False:
+            print(student)
+            return sname, squantity, "STUDENTADDED"
+
+        else: #student_status ==  "STUDENTNOTEXISTS":
             print(" No such {} student found in existing library".format(sname))
             student[sname] = {stdbook: sbqty}
             print("so adding new student {} with the book {} of count:{}".format(sname,stdbook,sbqty))
             print(student)
-        else:
-            print("Unknown error")
+            return sname, sbqty, "STUDENTNOTADDED"
+    else: #books_status == "NOTEXISTS":
+        #else:
+        print("NOTE: There are no books added in the library currently.")
+        print("FIRST add some books to the library and try again.")
+        print("operation failed")
+        return sname, sbqty, "ERROR"
+
 
 def get_student(searchstd):
     if searchstd in student.keys():
         print("{} student exists in library  with {}x {} book count..!".format(sname,sbqty,stdbook))
-        return True
+        return sname, sbqty, "STUDENTALREADYEXISTS"
     else:
         print("{} student doesn't exits in library.".format(searchstd))
-
-        return False
+        return sname, 0, "STUDENTNOTEXISTS"
 
 def remove_student(rstudent):
-    if get_student(rstudent) == True:
+    student_name, studentbook_quantity, student_status = get_student(sname)
+    if student_status == "STUDENTALREADYEXIST":
         print("Total {} books the student {} has before leaving is :{}".format(stdbook,sname,student[sname][stdbook]))
         student[sname][stdbook] = student[sname][stdbook] - student[sname][stdbook]
+        squantity = student[sname][stdbook]
         print("{} books  remaining with {} after removed is :{}".format(stdbook,sname,student[sname][stdbook]))
         student.popitem()
         print("{} student is removed from the library..".format(rstudent))
+        return squantity, "STUDENTREMOVED."
     else:
         print("No student named {} is found in library".format(rstudent))
         print("Operation failed !")
+        return student[sname][stdbook], "REMOVEFAILED!"
 
 op = True
 while op ==True:
@@ -94,14 +122,14 @@ while op ==True:
     elif choose == 3:
         rbook = str(input("Enter book name to remove: "))
         rqty = int(input("Enter the amount of {} to be removed: ".format(bname)))
-        remove_books(rbook)
+        remove_books(rbook,rqty)
 
     elif choose == 4:
         sname = str(input("Enter student name to be added:"))
-        stdbook = str(input("Enter the book to be issued by the student {}:".format(sname)))
-        sbqty = int(input("Enter the amount of books issued:"))
+        stdbook = str(input("Enter the book name to be issued by the student {}:".format(sname)))
+        sbqty = int(input("Enter the amount of books to be issued:"))
         add_student(sname,stdbook,sbqty)
-
+       
     elif choose == 5:
         searchstd =  str(input("Enter the student name to be searched in library:"))
 
