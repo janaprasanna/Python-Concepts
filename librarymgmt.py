@@ -144,8 +144,8 @@ while op ==True:
         get_student(searchstd)
     elif choose == 6:
         rstudent = str(input("Enter student name to remove: "))
-        rbstudent = int(input("Enter the amount of books to be returned:"))
-        remove_student(rbstudent,rbstudent)
+        rbstudent = int(input("Enter the amount of {} books to be returned:".format(stdbook)))
+        remove_student(rstudent,rbstudent)
 
     elif choose == 9:
         print("Good bye..! Have a nice day..!")
