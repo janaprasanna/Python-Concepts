@@ -50,19 +50,27 @@ def add_student(sname,stdbook,sbqty):
     student_name,studentbook_quantity,student_status= get_student(sname)
     if books_status == "ALREADYEXISTS":
         if student_status==  "STUDENTALREADYEXISTS":
-            print("{} student already found in library".format(sname))
-            student[sname][stdbook] = student[sname][stdbook] + sbqty
-            squantity = student[sname][stdbook]
-            print("Total {} books after adding again is: {}".format(stdbook,student[sname][stdbook]))
-            print(student)
-            return sname, squantity, "STUDENTADDED"
+            if sbqty<= book_quantity:
+                print("{} student already found in library".format(sname))
+                student[sname][stdbook] = student[sname][stdbook] + sbqty
+                squantity = student[sname][stdbook]
+                print("Total {} books after adding again is: {}".format(stdbook,student[sname][stdbook]))
+                print(student)
+                return sname, squantity, "STUDENTADDED"
 
-        else: #student_status ==  "STUDENTNOTEXISTS":
-            print(" No such {} student found in existing library".format(sname))
-            student[sname] = {stdbook: sbqty}
-            print("so adding new student {} with the book {} of count:{}".format(sname,stdbook,sbqty))
-            print(student)
-            return sname, sbqty, "STUDENTNOTADDED"
+        elif student_status == "STUDENTNOTEXISTS":
+            if sbqty <= book_quantity:
+                print(" No such {} student found in existing library".format(sname))
+                student[sname] = {stdbook: sbqty}
+                print("so adding new student {} with the book {} of count:{}".format(sname,stdbook,sbqty))
+                print(student)
+                return sname, sbqty, "STUDENTNOTADDED"
+
+            else:
+                print("NOTE: The entered student book quantity is greater than the available books in lib.")
+                print("Please enter a VALID book quantity !! ")
+        else:
+            print("Unknown Error!")
     else: #books_status == "NOTEXISTS":
         #else:
         print("NOTE: There are no books added in the library currently.")
