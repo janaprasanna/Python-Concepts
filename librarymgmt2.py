@@ -87,16 +87,28 @@ def get_student(searchstd):
         print("{} student doesn't exits in library.".format(searchstd))
         return sname, 0, "STUDENTNOTEXISTS"
 
-def remove_student(rstudent,rbstudent):
+def remove_student(rstudent,rbnstudent,rbstudent):
+    book_name, book_quantity, books_status = get_books(rbnstudent)
     student_name, studentbook_quantity, student_status = get_student(sname)
     if student_status == "STUDENTALREADYEXISTS":
-        print("Total {} books the student {} has before leaving is :{}".format(stdbook,sname,student[sname][stdbook]))
-        student[sname][stdbook] = student[sname][stdbook] - rbstudent
-        squantity = student[sname][stdbook]
-        print("{} books  remaining with {} after removed is :{}".format(stdbook,student_name,squantity))
-        student.popitem()
-        print("{} student is removed from the library..".format(rstudent))
-        return squantity, "STUDENTREMOVED."
+        if books_status == "ALREADYEXISTS":
+            print("Total {} books the student {} has before leaving is :{}".format(stdbook,sname,student[sname][stdbook]))
+            student[sname][stdbook] = student[sname][stdbook] - rbstudent
+            squantity = student[sname][stdbook]
+            print("{} books  remaining with {} after returned is :{}".format(stdbook,student_name,squantity))
+            print("NOTE: The student holds still more books with him .")
+            print("Therefore the student cannot be removed PERMANENTLY.")
+            #student.popitem()
+            #print("{} student is removed from the library..".format(rstudent))
+            return squantity, "STUDENTNOTREMOVEDPERMANENTLY."
+        elif books_status == "NOTEXISTS":
+            print("NOTE: The student does not have any books with him.")
+            print("Therefore  removing the student PERMANENTLY....")
+            student.popitem()
+            print("Student removed SUCCESSFULLY .")
+            return 0, "STUDENTNOTREMOVEDPERMANENTLY."
+        else:
+            print("UNKNOWN ERROR!")
     else:
         print("No student named {} is found in library".format(rstudent))
         print("Operation failed !")
@@ -144,8 +156,9 @@ while op ==True:
         get_student(searchstd)
     elif choose == 6:
         rstudent = str(input("Enter student name to remove: "))
-        rbstudent = int(input("Enter the amount of {} books to be returned:".format(stdbook)))
-        remove_student(rstudent,rbstudent)
+        rbnstudent = str(input("Enter the book name to be returned:"))
+        rbstudent = int(input("Enter the amount of {} books to be returned:".format(rbnstudent)))
+        remove_student(rstudent,rbnstudent,rbstudent)
 
     elif choose == 9:
         print("Good bye..! Have a nice day..!")
@@ -156,7 +169,7 @@ while op ==True:
 
 
 '''
-E:\githubprojects\myrepository1venv\Scripts\python.exe E:/githubprojects/myrepository1/librarymgmt.py
+E:\githubprojects\myrepository1venv\Scripts\python.exe E:/githubprojects/myrepository1/librarymgmt2.py
 Enter book name: math
 Enter math qty: 2
 Enter book name to search: math
