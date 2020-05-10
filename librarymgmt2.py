@@ -34,7 +34,7 @@ def remove_books(name,quantity):
     if books_status == "ALREADYEXISTS":
         if quantity <= books[name]:
             books[name]= books[name] - quantity
-            print("Existing {} books in the library is:{}".format(book_name,books[name]))
+            print(" {} books remaining after removing from the library is:{}".format(book_name,books[name]))
             return books[name],"REMOVED SUCCESSFULLY"
         else:
             print("NOTE: The entered value is greater than the books available in the library.")
@@ -81,7 +81,8 @@ def add_student(sname,stdbook,sbqty):
 
 def get_student(searchstd):
     if searchstd in student.keys():
-        print("{} student exists in library  with {}x {} book count..!".format(sname,sbqty,stdbook))
+        print("{} student exists in library  ..!".format(searchstd))
+        print("Book count the student {} has now is:{}".format(searchstd,student[searchstd]))
         return sname, sbqty, "STUDENTALREADYEXISTS"
     else:
         print("{} student doesn't exits in library.".format(searchstd))
@@ -89,20 +90,18 @@ def get_student(searchstd):
 
 def remove_student(rstudent,rbnstudent,rbstudent):
     book_name, book_quantity, books_status = get_books(rbnstudent)
-    student_name, studentbook_quantity, student_status = get_student(sname)
+    student_name, studentbook_quantity, student_status = get_student(rstudent)
     if student_status == "STUDENTALREADYEXISTS":
         if books_status == "ALREADYEXISTS":
-            print("Total {} books the student {} has before leaving is :{}".format(stdbook,sname,student[sname][stdbook]))
-            student[sname][stdbook] = student[sname][stdbook] - rbstudent
-            squantity = student[sname][stdbook]
-            print("{} books  remaining with {} after returned is :{}".format(stdbook,student_name,squantity))
+            print("Total {} books the student {} has before leaving is :{}".format(book_name,student_name,student[student_name][book_name]))
+            student[student_name][book_name] = student[student_name][book_name] - rbstudent
+            squantity = student[student_name][book_name]
+            print("{} books  remaining with {} after returned is :{}".format(book_name,student_name,squantity))
             print("NOTE: The student holds still more books with him .")
             print("Therefore the student cannot be removed PERMANENTLY.")
-            #student.popitem()
-            #print("{} student is removed from the library..".format(rstudent))
             return squantity, "STUDENTNOTREMOVEDPERMANENTLY."
         elif books_status == "NOTEXISTS":
-            print("NOTE: The student does not have any books with him.")
+            print("NOTE: The student does not have  books with him.".format(book_name))
             print("Therefore  removing the student PERMANENTLY....")
             student.popitem()
             print("Student removed SUCCESSFULLY .")
@@ -112,7 +111,7 @@ def remove_student(rstudent,rbnstudent,rbstudent):
     else:
         print("No student named {} is found in library".format(rstudent))
         print("Operation failed !")
-        return student[sname][stdbook], "REMOVEFAILED!"
+        return student[student_name][book_name], "REMOVEFAILED!"
 
 op = True
 while op ==True:
@@ -128,8 +127,8 @@ while op ==True:
           "8.Return books to the library\n"
           "9.Exit from the library\n")
 
-    choose = int(input("Enter the  choices in our Library Management:\n"
-                       "use numbers to represent your choices!\n"))
+    choose = int(input("Enter the  choices in our Library Management(use numbers to represent your choices!):"))
+
     if choose == 1:
         bname = str(input("Enter book name: "))
         bqty = int(input("Enter {} book qty: ".format(bname)))
@@ -153,6 +152,7 @@ while op ==True:
     elif choose == 5:
         searchstd =  str(input("Enter the student name to be searched in library:"))
 
+
         get_student(searchstd)
     elif choose == 6:
         rstudent = str(input("Enter student name to remove: "))
@@ -166,23 +166,3 @@ while op ==True:
 
 
 
-
-
-'''
-E:\githubprojects\myrepository1venv\Scripts\python.exe E:/githubprojects/myrepository1/librarymgmt2.py
-Enter book name: math
-Enter math qty: 2
-Enter book name to search: math
-math book found in library
-Enter student name to be added:jana
-Enter the book to be issued by the student jana:math
-Enter the amount of books issued:2
-{'jana': {'math': 2}}
-Enter the student name to be searched in library:jana
-jana student found in library
-
-Process finished with exit code 0
-
-
-
-'''
