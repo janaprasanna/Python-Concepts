@@ -1,0 +1,26 @@
+def add(a,b):
+    print(a+b)
+
+
+#modify add() such that if a<b it shoud subract
+def modify(func):
+    def subract(a,b):
+        if(a<b):
+            total = a + b
+            a = -total + b
+        return func(a,b)    #here return func(a,b) is called a closure (a function whose return value depends on
+                             # the variable defined outside the inner loop
+
+    return subract
+
+obj = modify(add) #outer function simply returns inner function which is collected by a variable obj.
+obj(1,4)  #obj contains inner function (subract)
+#modify() calls subract()
+#subract() calls add()
+
+
+#func is add()
+
+
+A decorator  is feature which allows us to modify an existing function without changing the source code of the original function.
+A closure is a function, whose return value depends on the variable declared outside the inner function.
